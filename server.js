@@ -1,17 +1,9 @@
-const express = require('express');
-const connectDB = require('./config/db');
-const userRoutes = require('./routes/userRoutes');
-const vehicleRoutes = require('./routes/vehicleRoutes');
-const orderRoutes = require('./routes/orderRoutes');
+// server.js or your main backend file
+const mongoose = require('mongoose');
+require('dotenv').config(); // This loads the environment variables
 
-const app = express();
-connectDB();
-
-app.use(express.json());
-app.use('/api/users', userRoutes);
-app.use('/api/vehicles', vehicleRoutes);
-app.use('/api/orders', orderRoutes);
-
-const PORT = 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Make sure your MONGO_URI environment variable is set correctly
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.log("MongoDB connection error: ", err));
 
